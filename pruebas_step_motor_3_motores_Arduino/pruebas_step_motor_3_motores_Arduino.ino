@@ -1,4 +1,4 @@
-// Control de un motor a pasos con driver DRV8825 en Arduino UNO
+// Control de tres motores a pasos con driver DRV8825 en Arduino MEGA
 #include "AccelStepper.h"
 
 // --- 1. DEFINICIÓN DE PINES Y PARÁMETROS (ARDUINO UNO GPIO) ---
@@ -7,10 +7,11 @@
 #define stepPin 3        // Pin de Paso del Motor (Ej: Digital 3)
 #define motorInterfaceType 1 // Interfaz DRIVER (Paso/Dirección)
 
-
 #define dirPin2 4   // Pin de Direccion del motor 2 ()
 #define stepPin2 5 // Pin de Paso del motor 2
 
+#define dirPin3 6 // Pin de Direccion del motor 3 ()
+#define stepPin3 7 // Pin de paso del motor 3 
 
 // --- 2. PARAMETROS DE TIEMPO Y VELOCIDAD ---
 const long tiempoDeGiro = 7000;     // Tiempo que girará en una direccion (en milisegundos)
@@ -27,6 +28,9 @@ AccelStepper stepperX = AccelStepper(motorInterfaceType, stepPin, dirPin);
 // Motor 2 
 AccelStepper stepperY = AccelStepper(motorInterfaceType, stepPin2, dirPin2);
 
+// Motor 3
+AccelStepper stepperZ = AccelStepper(motorInterfaceType, stepPin3, dirPin3);
+
 
 void setup() {
     Serial.begin(9600); // Usamos 115200 baudios
@@ -36,7 +40,12 @@ void setup() {
     stepperX.setMaxSpeed(1000.0);
 
     // Establece velocidad Maxima de pasos por segundo para segundo motor
-    stepperY.setMaxSpeed(1000.0); 
+    stepperY.setMaxSpeed(1000.0);
+
+    // Establece velocidad Maxima de pasos por segundo para tercer motor
+    stepperZ.setMaxSpeed(1000.0);
+
+
     
     // Establece la aceleración para movimientos suaves
     stepperX.setAcceleration(500.0); 
@@ -44,10 +53,15 @@ void setup() {
     // Establece la aceleracion para movimientos suaves de segundo motor 
     stepperY.setAcceleration(500.0); 
 
+    // Establece la aceleracion para movimientos suaves de tercer motor 
+    stepperZ.setAcceleration(500.0); 
+
 
     // Inicializa el motor girando en la primera direccion 
     stepperX.setSpeed(velocidadPositiva);
     stepperY.setSpeed(velocidadPositiva);
+    stepperY.setSpeed(velocidadPositiva);
+
 
     tiempoAnterior = millis(); 
 }
@@ -57,14 +71,16 @@ void loop() {
     // --- 4. LÓGICA DE CAMBIO DE DIRECCION ---
     if (millis() - tiempoAnterior >= tiempoDeGiro){
       // Si la velocidad actual es positiva, la cambia a negativa
-      if (stepperX.speed() > 0  && stepperY.speed() > 0){
+      if (stepperX.speed() > 0  && stepperY.speed() > 0 && stepperZ.speed() > 0){
         stepperX.setSpeed(velocidadNegativa);
         stepperY.setSpeed(velocidadNegativa);
+        stepperZ.setSpeed(velocidadNegativa);
         Serial.println("Cambiando de direccion: Sentido Negativo");
       }
       else{
         stepperX.setSpeed(velocidadPositiva);
         stepperY.setSpeed(velocidadPositiva);
+        stepperZ.setSpeed(velocidadPositiva);
         Serial.println("Cambiando de direccion: Sentido Positivo");
       }
 
@@ -77,4 +93,5 @@ void loop() {
     // Debe llamarse constantemente para que el motor se mueva.
     stepperX.runSpeed();
     stepperY.runSpeed();
+    stepperZ.runSpeed();
 }

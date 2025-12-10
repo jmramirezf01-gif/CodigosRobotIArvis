@@ -1,8 +1,8 @@
 // Control de tres motores a pasos con driver DRV8825 en Arduino MEGA
 #include "AccelStepper.h"
 
-// --- 1. DEFINICIÓN DE PINES Y PARÁMETROS (ARDUINO UNO GPIO) ---
-// Usando pines digitales comunes del Arduino UNO
+// --- 1. DEFINICIÓN DE PINES Y PARÁMETROS (ARDUINO MEGA GPIO) ---
+// Usando pines digitales comunes del Arduino MEGA
 #define dirPin 2         // Pin de Dirección del Motor (Ej: Digital 2)
 #define stepPin 3        // Pin de Paso del Motor (Ej: Digital 3)
 #define motorInterfaceType 1 // Interfaz DRIVER (Paso/Dirección)

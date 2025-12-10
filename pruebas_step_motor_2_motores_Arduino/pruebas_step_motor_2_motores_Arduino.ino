@@ -29,7 +29,7 @@ AccelStepper stepperY = AccelStepper(motorInterfaceType, stepPin2, dirPin2);
 
 
 void setup() {
-    Serial.begin(9600); // Usamos 115200 baudios
+    Serial.begin(9600); // Usamos 9600 baudios
     Serial.println("Control de Motor Continuo en Arduino MEGA.");
     
     // Establece la velocidad máxima de pasos por segundo

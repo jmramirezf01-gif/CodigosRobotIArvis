@@ -33,7 +33,7 @@ AccelStepper stepperZ = AccelStepper(motorInterfaceType, stepPin3, dirPin3);
 
 
 void setup() {
-    Serial.begin(9600); // Usamos 115200 baudios
+    Serial.begin(9600); // Usamos 9600 baudios
     Serial.println("Control de Motor Continuo en Arduino MEGA.");
     
     // Establece la velocidad máxima de pasos por segundo
@@ -66,6 +66,7 @@ void setup() {
     tiempoAnterior = millis(); 
 }
 
+
 void loop() {
 
     // --- 4. LÓGICA DE CAMBIO DE DIRECCION ---
@@ -86,6 +87,11 @@ void loop() {
 
       tiempoAnterior = millis();
     }
+    
+    // --- 4.1 MAPEO DE LAS TECLAS DE PIN PAD
+
+
+
 
     // --- 5. EJECUCION DEL MOVIMIENTO
 

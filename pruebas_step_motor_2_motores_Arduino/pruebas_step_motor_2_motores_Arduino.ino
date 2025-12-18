@@ -3,13 +3,21 @@
 
 // --- 1. DEFINICIÓN DE PINES Y PARÁMETROS (ARDUINO MEGA GPIO) ---
 // Usando pines digitales comunes del Arduino MEGA
+
+// MOTOR 1 
 #define dirPin 2         // Pin de Dirección del Motor (Ej: Digital 2)
 #define stepPin 3        // Pin de Paso del Motor (Ej: Digital 3)
 #define motorInterfaceType 1 // Interfaz DRIVER (Paso/Dirección)
 
 
+
+// MOTOR 2
 #define dirPin2 4   // Pin de Direccion del motor 2 ()
 #define stepPin2 5 // Pin de Paso del motor 2
+
+
+// VARIABLE PARA FINAL DE CARRERA 
+
 
 
 // --- 2. PARAMETROS DE TIEMPO Y VELOCIDAD ---

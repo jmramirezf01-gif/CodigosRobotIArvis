@@ -4,12 +4,31 @@ void configurarHardware() {
   stepperX2.setMaxSpeed(VEL_MAX);  stepperX2.setAcceleration(ACEL);
   stepperY.setMaxSpeed(VEL_MAX);   stepperY.setAcceleration(ACEL);
 
+  stepperZ.setMaxSpeed(600);       stepperZ.setAcceleration(300);
+
   // Sensores
   pinMode(limitPinX, INPUT);
   pinMode(limitPinY, INPUT);
+  pinMode(limitPinZ, INPUT);
 }
 
 void ejecutarHoming() {
+  // --- Paso0: EJE Z (SUBIR) ---
+  Serial.println("Calibrado Z (Subiendo)..."); 
+  stepperZ.moveTo(5000);
+  while (digitalRead(limitPinZ) == HIGH){ // El boton detiene el motor
+    stepperZ.run();
+  }
+  stepperZ.stop();
+  stepperZ.setCurrentPosition(0);
+
+  // Baja un poco para no dejar presionado el boton 
+  stepperZ.moveTo(-100);
+  esperarMotores();
+  
+  delay(500);
+
+
   // --- PASO 1: EJE X ---
   Serial.println("Calibrando Eje X...");
   stepperX1.moveTo(15000); // Valor alto para asegurar que llegue al sensor
@@ -42,14 +61,35 @@ void ejecutarHoming() {
   // Alejar Y a posición segura
   stepperY.moveTo(DIST_SEGURIDADY);
   esperarMotores();
-  
+
+
   Serial.println("Homing finalizado con exito.");
+  //delay(500);
+
+
+  /*// --- Paso0: EJE Z (SUBIR) ---
+  Serial.println("Calibrado Z (Subiendo)..."); 
+  stepperZ.moveTo(5000);
+  while (digitalRead(limitPinZ) == HIGH){ // El boton detiene el motor
+    stepperZ.run();
+  }
+  stepperZ.stop();
+  stepperZ.setCurrentPosition(0);
+
+  // Baja un poco para no dejar presionado el boton 
+  stepperZ.moveTo(-100);
+  esperarMotores();
+  
+  Serial.println("Homing finalizado con exito.");*/
+
+  
 }
 
 void esperarMotores() {
-  while (stepperX1.distanceToGo() != 0 || stepperX2.distanceToGo() != 0 || stepperY.distanceToGo() != 0) {
+  while (stepperX1.distanceToGo() != 0 || stepperX2.distanceToGo() != 0 || stepperY.distanceToGo() != 0 || stepperZ.distanceToGo() != 0) {
     stepperX1.run();
     stepperX2.run();
     stepperY.run();
+    stepperZ.run();
   }
 }

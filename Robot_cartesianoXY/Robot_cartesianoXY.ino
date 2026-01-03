@@ -5,6 +5,7 @@
 AccelStepper stepperX1(motorInterfaceType, stepX1, dirX1);
 AccelStepper stepperX2(motorInterfaceType, stepX2, dirX2);
 AccelStepper stepperY(motorInterfaceType, stepY, dirY);
+AccelStepper stepperZ(motorInterfaceType, stepZ, dirZ);
 
 
 void setup() {
@@ -13,11 +14,13 @@ void setup() {
   configurarHardware(); // Configurando velocidades y pines 
   ejecutarHoming(); // Realizando calibracion secuencial
 
-  Serial.println("Robot listo para ejecuacion de actividades.");
+  Serial.println("Robot de 3 ejes listo.");
 
 }
 
 void loop() {
-  dibujarCuadrado();
+  // Ejemplo de como teclar el NIP 1-2-3-4
+  teclearPIN(1, 2, 3, 4);
+  delay(10000);
 
 }
